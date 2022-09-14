@@ -6,18 +6,22 @@ import { ProductContext } from "../../Context/Product.context"
 import { useDispatch,useSelector } from "react-redux"
 import { selectCartItems } from "../../store/cart/cart.selector"
 import { addItemToCart } from "../../store/cart/cart.action"
+import { selectCategories } from "../../store/product/product.selector"
 
 
 const CategoryProducts = (props) => {
-    const {products} = useContext(ProductContext)
+    // const {products} = useContext(ProductContext)
     // const {addToCart} = useContext(CartContext)
+
+    const products = useSelector(selectCategories)
+    
 
     const dispatch = useDispatch()
     const {cart} = useSelector(selectCartItems)
 
 
     const {category} = useParams()
-    const catProds = products.filter((p)=>p.title === category)[0]
+    const catProds = products.categories?.filter((p)=>p.title === category)[0]
 
 
     const addProdToCart = (p)=>dispatch(addItemToCart(cart,p))
